@@ -1,6 +1,12 @@
-function [neighs,dists,indices] = nearestNeighbors(neighbors,point)
+function [neighs,dists,indices] = nearestNeighbors(neighbors,point,k)
     %given a list of possible nearest neighbors and a point, find the N+1
     %nearest neighbors with N as the dimension of the point
+    
+    %want to select k nearest neighbors
+    %no k specified means that N+1 neighbors are selected
+    if nargin == 2
+        k = N+1;
+    end
     
     [N,cols] = size(neighbors);
     assert(all([N,1] == size(point))); %properly sized and oriented
@@ -10,10 +16,10 @@ function [neighs,dists,indices] = nearestNeighbors(neighbors,point)
     %don't have to, but it is convenient to also track the original indices
     %start with first N+1 neighbors
     
-    neighs = neighbors(:,1:N+1);
+    neighs = neighbors(:,1:k);
     dists = [];
-    indices = 1:N+1;
-    for i=1:N+1
+    indices = 1:k;
+    for i=1:k
         dists(i) = norm(neighs(:,i)-point);
     end
     
@@ -24,7 +30,7 @@ function [neighs,dists,indices] = nearestNeighbors(neighbors,point)
     neighs = neighs(:,index);
     
     
-    for i=N+2:cols %check if any neighbors are closer
+    for i=k+1:cols %check if any neighbors are closer
         n = neighbors(:,i);
         d = norm(n-point);
         comp = d<dists;
