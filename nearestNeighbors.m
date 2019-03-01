@@ -6,7 +6,8 @@ function [neighs,dists,indices] = nearestNeighbors(neighbors,point,k)
     
     [N,cols] = size(neighbors);
     assert(all([N,1] == size(point))); %properly sized and oriented
-    assert(cols-1 >= N); %enough neighbors to look for
+    %if there are not enough neighbors it is just neighbors sorted by
+    %distance
     
     %want to select k nearest neighbors
     %no k specified means that N+1 neighbors are selected

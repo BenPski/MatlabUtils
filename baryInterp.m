@@ -24,7 +24,7 @@ function out = baryInterp(neighbors,vals,point)
 %     point
 %     origin
 %     neighbors
-    
+    M\(point-origin);
     weights = [1-sum(w);w];
     
     out = (weights'*vals')';
