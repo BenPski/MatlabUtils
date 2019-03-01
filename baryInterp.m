@@ -1,4 +1,4 @@
-function out = baryInterp(neighbors,vals,point)
+function [out,weights] = baryInterp(neighbors,vals,point)
     %compute the barycentric interpolation for an N dimensional point given
     %N+1 neighbors
     
